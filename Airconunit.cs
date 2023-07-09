@@ -19,11 +19,19 @@ namespace AirCon
         public Airconunit(string name, int maxtemp, int mintemp, int power)
         {
             this.name = name;
-            this.maxtemp = maxtemp;
-            this.mintemp = mintemp;
+            if(maxtemp > mintemp) {
+                this.maxtemp = maxtemp;
+                this.mintemp = mintemp;
+                this.targettemp = (maxtemp + mintemp) / 2;
+            }
+            else
+            {
+                this.maxtemp = 30;
+                this.mintemp = 18;
+                this.targettemp = 25;
+            }
             this.on = false;
             this.cooling = true;
-            this.targettemp = 25;
             if (power >= 1 && power <= 10) { this.power = power; }
             else { this.power = 5; }
         }
@@ -136,13 +144,13 @@ namespace AirCon
         public int Maxtemp
         {
             get { return maxtemp; }
-            set { maxtemp = value; }
+            set { if(value > mintemp){maxtemp = value;} }
         }
 
         public int Mintemp
         {
             get { return mintemp; }
-            set { mintemp = value; }
+            set { if(value<maxtemp){mintemp = value;} }
         }
     }
 }
