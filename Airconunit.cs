@@ -64,14 +64,15 @@ namespace AirCon
 
         public void TempUp()
         {
-            if (targettemp <= maxtemp)
+            if (targettemp <= maxtemp - 1)
             {
                 targettemp += 1;
             }
         }
 
-        public void PowerDown() {
-            if (targettemp >= mintemp)
+        public void TempDown()
+        {
+            if (targettemp >= mintemp + 1)
             {
                 targettemp -= 1;
             }
