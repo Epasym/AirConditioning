@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +24,8 @@ namespace AirCon
             this.on = false;
             this.cooling = true;
             this.targettemp = 25;
-            this.power = power;
+            if (power >= 1 && power <= 10) { this.power = power; }
+            else { this.power = 5; }
         }
 
         public Airconunit()
@@ -81,16 +82,16 @@ namespace AirCon
             float tempchange = 0;
             if (on)
             {
-                if(cooling)
+                if (cooling)
                 {
-                    if(currenttemp > targettemp)
+                    if (currenttemp > targettemp)
                     {
-                        tempchange -= (float)1/ (2 * power);
+                        tempchange -= (float)1 / (2 * power);
                     }
                 }
                 else
                 {
-                    if(currenttemp < targettemp)
+                    if (currenttemp < targettemp)
                     {
                         tempchange += (float)1 / (2 * power);
                     }
@@ -102,13 +103,21 @@ namespace AirCon
         public string Name
         {
             get { return name; }
-            set { this.name = value;}
+            set { this.name = value; }
         }
 
         public int Targettemp
         {
             get { return targettemp; }
-            set { this.targettemp = value; }
+            set { if (value <= maxtemp && targettemp >= mintemp)
+                {
+                    this.targettemp = value;
+                }
+                else
+                {
+                    this.targettemp = 25;
+                }
+            }
         }
 
         public bool Cooling
@@ -125,8 +134,14 @@ namespace AirCon
 
         public int Maxtemp
         {
-            get { return Maxtemp; }
-            set { Maxtemp = value; }
+            get { return maxtemp; }
+            set { maxtemp = value; }
+        }
+
+        public int Mintemp
+        {
+            get { return mintemp; }
+            set { mintemp = value; }
         }
     }
 }
